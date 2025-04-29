@@ -27,7 +27,7 @@ int	getInt(const std::string& str) {
 	return ret;
 }
 
-std::vector<std::pair<int, int> >	binaryInsertion(std::vector<std::pair<int, int> > &sorted, std::vector<std::pair<int, int> > &insert) {
+static std::vector<std::pair<int, int> >	binaryInsertion(const std::vector<std::pair<int, int> > &sorted, const std::vector<std::pair<int, int> > &insert) {
 	std::vector<std::pair<int, int> >	ret;
 	int	stage = 0;
 	size_t	finishInsert = 0;
@@ -42,7 +42,7 @@ std::vector<std::pair<int, int> >	binaryInsertion(std::vector<std::pair<int, int
 			ret.insert(std::lower_bound(ret.begin(), ret.begin() + searchSize, insert[j]), insert[j]);
 		}
 		finishInsert += jacob[stage];
-		if (insert.size() <= finishInsert) {
+		if (insert.size() - 1 <= finishInsert) {
 			for (size_t i = sortedI; i < sorted.size(); ++i) ret.push_back(sorted[i]);
 			return ret;
 		}
@@ -50,11 +50,12 @@ std::vector<std::pair<int, int> >	binaryInsertion(std::vector<std::pair<int, int
 	}
 }
 
-std::vector<std::pair<int, int> >	vectorFordJhonson(std::vector<std::pair<int, int> > &v) {
+static std::vector<std::pair<int, int> >	vectorFordJhonson(const std::vector<std::pair<int, int> > &v) {
 	std::vector<std::pair<int, int> > larger;
-	std::pair<int, int>	last = v[v.size()-1];
 
 	if (v.size() <= 1) return v;
+	std::pair<int, int>	last = v[v.size()-1];
+
 	for (size_t i = 0; i + 1 < v.size(); i += 2) {
 		if (v[i] < v[i + 1]) larger.push_back(std::make_pair(v[i + 1].first, i));
 		else larger.push_back(std::make_pair(v[i].first, i + 1));
@@ -92,8 +93,7 @@ double	vectorFordJhonson(std::vector<int> &v) {
 	return static_cast<double>(std::clock() - start) / CLOCKS_PER_SEC * 1e6;
 }
 
-
-std::deque<std::pair<int, int> >	binaryInsertion(std::deque<std::pair<int, int> > &sorted, std::deque<std::pair<int, int> > &insert) {
+static std::deque<std::pair<int, int> >	binaryInsertion(const std::deque<std::pair<int, int> > &sorted, const std::deque<std::pair<int, int> > &insert) {
 	std::deque<std::pair<int, int> >	ret;
 	int	stage = 0;
 	size_t	finishInsert = 0;
@@ -108,7 +108,7 @@ std::deque<std::pair<int, int> >	binaryInsertion(std::deque<std::pair<int, int> 
 			ret.insert(std::lower_bound(ret.begin(), ret.begin() + searchSize, insert[j]), insert[j]);
 		}
 		finishInsert += jacob[stage];
-		if (insert.size() <= finishInsert) {
+		if (insert.size() - 1 <= finishInsert) {
 			for (size_t i = sortedI; i < sorted.size(); ++i) ret.push_back(sorted[i]);
 			return ret;
 		}
@@ -116,11 +116,12 @@ std::deque<std::pair<int, int> >	binaryInsertion(std::deque<std::pair<int, int> 
 	}
 }
 
-std::deque<std::pair<int, int> >	dequeFordJhonson(std::deque<std::pair<int, int> > &d) {
+static std::deque<std::pair<int, int> >	dequeFordJhonson(const std::deque<std::pair<int, int> > &d) {
 	std::deque<std::pair<int, int> > larger;
-	std::pair<int, int>	last = d[d.size()-1];
 
 	if (d.size() <= 1) return d;
+	std::pair<int, int>	last = d[d.size()-1];
+
 	for (size_t i = 0; i + 1 < d.size(); i += 2) {
 		if (d[i] < d[i + 1]) larger.push_back(std::make_pair(d[i + 1].first, i));
 		else larger.push_back(std::make_pair(d[i].first, i + 1));

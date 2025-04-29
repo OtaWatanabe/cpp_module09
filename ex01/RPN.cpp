@@ -28,19 +28,13 @@ void	processPolish(const std::string& expression) {
 	std::stack<int>	st;
 	size_t	i = 0;
 
-	while (1) {
-		if (expression[i] == '\0') break;
-		if (isdigit(expression[i])) st.push(expression[i] - '0');
-		else calculate(st, expression[i]);
-		if (expression[i + 1] == '\0') break;
-		if (expression[i + 1] != ' ') {
-			std::cerr << "invalid expression" << std::endl;
-			std::exit(1);
-		}
-		i += 2;
+	while (expression[i]) {
+		if (std::isdigit(expression[i])) st.push(expression[i] - '0');
+		else if (!std::isspace(expression[i])) calculate(st, expression[i]);
+		++i;
 	}
 	if (st.size() != 1) {
-		std::cerr << "the numbers of numbers and operators don't match" << std::endl;
+		std::cerr << "the numbers of integers and operators don't match" << std::endl;
 		std::exit(1);
 	}
 	std::cout << st.top() << std::endl;

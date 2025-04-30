@@ -75,7 +75,7 @@ std::map<std::string, float>	getData(void) {
 }
 
 void	calculateInput(const std::map<std::string, float>& bitData, const std::string& filename) {
-	std::ifstream	readInput(filename);
+	std::ifstream	readInput(filename.c_str());
 
 	if (readInput.fail()) {
 		std::cerr << "Failed to open input file" << std::endl;

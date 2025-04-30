@@ -1,13 +1,13 @@
 #include "RPN.hpp"
 
-static void	calculate(std::stack<int>& st, char op) {
+static void	calculate(std::stack<double>& st, char op) {
 	if (st.size() < 2) {
 		std::cerr << "invalid expression: cannot calculate" << std::endl;
 		std::exit(1);
 	}
-	int	x = st.top();
+	double	x = st.top();
 	st.pop();
-	int	y = st.top();
+	double	y = st.top();
 	if (op == '-') st.top() = y - x;
 	else if (op == '+') st.top() = x + y;
 	else if (op == '*') st.top() = x * y;
@@ -25,11 +25,11 @@ static void	calculate(std::stack<int>& st, char op) {
 }
 
 void	processPolish(const std::string& expression) {
-	std::stack<int>	st;
+	std::stack<double>	st;
 	size_t	i = 0;
 
 	while (expression[i]) {
-		if (std::isdigit(expression[i])) st.push(expression[i] - '0');
+		if (std::isdigit(expression[i])) st.push(static_cast<double>(expression[i] - '0'));
 		else if (!std::isspace(expression[i])) calculate(st, expression[i]);
 		++i;
 	}
